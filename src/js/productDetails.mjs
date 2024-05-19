@@ -12,7 +12,9 @@ function addToCart() {
   //get cart contents from localStorage into a local variable
   let cartContents = getLocalStorage("so-cart");
   //if nothing is there, set it to an empty list
-  if (!cartContents) { cartContents = []; }
+  if (!cartContents) {
+     cartContents = [];
+  }
   //add the currently selected product to the list
   cartContents.push(product);
   setLocalStorage("so-cart", cartContents);
