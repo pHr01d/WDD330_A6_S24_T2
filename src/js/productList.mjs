@@ -1,9 +1,5 @@
-import {
-  getData
-} from "./productData.mjs";
-import {
-  renderListWithTemplate
-} from "./utils.mjs";
+import { getData } from "./productData.mjs";
+import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
   return `<li class="product-card">
@@ -22,7 +18,10 @@ export default async function productList(selector, category) {
   // get the element we will insert the list into from the selector
   const el = document.querySelector(selector);
   // get the list of products 
-  const products = await getData(category);
+  let products = await getData(category);
+  
+  products = products.filter((product) => product.Id != "989CG" && product.Id != "880RT");
+    
   console.log(products);
 
   // render out the product list to the element
