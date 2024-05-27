@@ -13,7 +13,7 @@ function productCardTemplate(product) {
   <p class="product-card__price">$${product.FinalPrice}</p></a>
 </li>`
 }
-
+//productList(".product-list", "tents");
 export default async function productList(selector, category) {
   // get the element we will insert the list into from the selector
   const el = document.querySelector(selector);
