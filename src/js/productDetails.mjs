@@ -3,7 +3,8 @@ import { getLocalStorage, setLocalStorage, qs } from "./utils.mjs";
 
 let product = {};
 
-export default async function productDetails(productId) { product = await findProductById(productId);
+export default async function productDetails(productId) { 
+  product = await findProductById(productId);
   renderProductDetails();
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
@@ -23,7 +24,7 @@ function addToCart() {
 function renderProductDetails() {
   qs("#productName").innerText = product.Brand.Name;
   qs("#productNameWithoutBrand").innerText = product.NameWithoutBrand;
-  qs("#productImage").src = product.Image;
+  qs("#productImage").src = product.Images.PrimaryLarge;
   qs("#productImage").alt = product.Name;
   qs("#productFinalPrice").innerText = product.FinalPrice;
   qs("#productColorName").innerText = product.Colors[0].ColorName;

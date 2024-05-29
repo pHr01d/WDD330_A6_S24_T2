@@ -201,6 +201,21 @@ button {
   grid-row: 2;
   grid-column: 3;
 }
+/* Main page product grid*/
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+}
+.grid-item{
+  align-content: center;
+  text-align: center;
+  font-weight: bold; 
+  font-size: 1.2em;
+  text-decoration: none;
+}
+.grid-item a:link{
+  text-decoration: none;
+}
 
 @media screen and (min-width: 500px) {
   body {
