@@ -7,7 +7,8 @@ function convertToJson(res) {
     throw new Error("Bad Response");
   }
 }
-export  async function getData(category) {
+
+export async function getData(category) {
   const response = await fetch(baseURL + `products/search/${category}`);
   const data = await convertToJson(response);
   return data.Result;
