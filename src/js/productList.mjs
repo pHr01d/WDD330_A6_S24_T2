@@ -3,15 +3,15 @@ import { renderListWithTemplate, qs } from "./utils.mjs";
 
 function productCardTemplate(product) {
   return `<li class="product-card">
-  <a href="/product_pages/index.html?product=${product.Id}">
-  <img
-    src="${product.Images.PrimaryMedium}"
-    alt="Image of ${product.Name}"
-  />
-  <h3 class="card__brand">${product.Brand.Name}</h3>
-  <h2 class="card__name">${product.NameWithoutBrand}</h2>
-  <p class="product-card__price">$${product.FinalPrice}</p></a>
-</li>`
+    <a href="/product_pages/index.html?product=${product.Id}">
+    <img
+      src="${product.Images.PrimaryMedium}"
+      alt="Image of ${product.Name}"
+    />
+    <h3 class="card__brand">${product.Brand.Name}</h3>
+    <h2 class="card__name">${product.NameWithoutBrand}</h2>
+    <p class="product-card__price">$${product.FinalPrice}</p></a>
+  </li>`
 }
 //productList(".product-list", "tents");
 export default async function productList(selector, category) {
@@ -19,7 +19,6 @@ export default async function productList(selector, category) {
   const el = qs(selector);
   // get the list of products 
   let products = await getProductsByCategory(category);
-  
   // render out the product list to the element
   renderListWithTemplate(productCardTemplate, el, products);
   const firstLetter = category.charAt(0);

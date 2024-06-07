@@ -30,4 +30,5 @@ function renderProductDetails() {
   qs("#productColorName").innerText = product.Colors[0].ColorName;
   qs("#productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
   qs("#addToCart").dataset.id = product.Id;
+  qs("#prodTitle").innerText = "Sleep Outside | " + product.Id;
 }
