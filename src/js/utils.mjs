@@ -9,10 +9,12 @@ export const qs = (selector, parent = document) => parent.querySelector(selector
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -54,11 +56,11 @@ function loadTemplate(path) {
   // wait what?  we are returning a new function? 
   // this is called currying and can be very helpful.
   return async function () {
-      const res = await fetch(path);
-      if (res.ok) {
-        const html = await res.text();
-        return html;
-      }
+    const res = await fetch(path);
+    if (res.ok) {
+      const html = await res.text();
+      return html;
+    }
   };
 } 
 
