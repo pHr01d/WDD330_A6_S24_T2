@@ -1,4 +1,4 @@
-import { getData } from "./productData.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 import { renderListWithTemplate, qs } from "./utils.mjs";
 
 
@@ -15,7 +15,7 @@ function alertsTemplate(alertList) {
   export default async function alertsList() {
     // get the element we will insert the list into from the selector
     const el = qs(".alerts-list");
-    const alerts = await getData("alerts");
+    const alerts = await getProductsByCategory("alerts");
   
     // render out the product list to the element
     renderListWithTemplate(alertsTemplate, el, alerts);
