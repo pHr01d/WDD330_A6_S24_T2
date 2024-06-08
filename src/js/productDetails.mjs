@@ -26,7 +26,8 @@ function renderProductDetails() {
   qs("#productNameWithoutBrand").innerText = product.NameWithoutBrand;
   qs("#productImage").src = product.Images.PrimaryLarge;
   qs("#productImage").alt = product.Name;
-  qs("#productFinalPrice").innerText = product.FinalPrice;
+  qs("#productSuggestedRetailPrice").innerText = "Suggested Retail: " + (product.SuggestedRetailPrice).toFixed(2);
+  qs("#productFinalPrice").innerText = "Discount Price: " + (product.FinalPrice).toFixed(2);
   qs("#productColorName").innerText = product.Colors[0].ColorName;
   qs("#productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
   qs("#addToCart").dataset.id = product.Id;
