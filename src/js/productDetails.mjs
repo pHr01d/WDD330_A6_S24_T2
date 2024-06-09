@@ -16,8 +16,23 @@ function addToCart() {
   if (!cartContents) {
      cartContents = [];
   }
-  //add the currently selected product to the list
-  cartContents.push(product);
+  // get the array of items already in the cart
+  const items = cartContents.map((item) => item.Id);
+  // get the index number of the item in the cart
+  // if it's not in the cart, the return will be -1
+  let index = items.indexOf(product.Id);
+
+  if (index < 0) {
+    // if the item isn't in the cart, add it and
+    // set the initial quantity to 1
+    product.Qty = 1;
+    cartContents.push(product);
+  } else {
+    // since it is in the cart, increment its quantity
+    console.log(cartContents[index]);
+    cartContents[index].Qty += 1;
+  }
+  // update local storage
   setLocalStorage("so-cart", cartContents);
 }
 

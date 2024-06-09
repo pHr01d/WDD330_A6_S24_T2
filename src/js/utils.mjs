@@ -6,14 +6,10 @@
 export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
-export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
-}
+export function getLocalStorage(key) { return JSON.parse(localStorage.getItem(key));}
 
 // save data to local storage
-export function setLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
-}
+export function setLocalStorage(key, data) { localStorage.setItem(key, JSON.stringify(data));}
 
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
@@ -26,9 +22,10 @@ export function setClick(selector, callback) {
 
 // Returns parameters from URL
 export function getParam(param) {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
+  const
+    queryString = window.location.search,
+    urlParams = new URLSearchParams(queryString),
+    product = urlParams.get(param);
   return product;
 }
 
@@ -64,12 +61,22 @@ function loadTemplate(path) {
   };
 } 
 
-export async function loadHeaderFooter() {
-  const headerTemplateFn = loadTemplate("/partials/header.html");
-  const headerEl = document.querySelector("#main-header");
-  renderWithTemplate(headerTemplateFn, headerEl);
+export function getCartCount() {
+  const count = getLocalStorage("so-cart")?.length ?? 0;
+  return count;
+}
 
-  const footerTemplateFn = loadTemplate("/partials/footer.html");
-  const footerEl = document.querySelector("#main-footer");
+export async function loadHeaderFooter() {
+  const
+    headerTemplateFn = loadTemplate("/partials/header.html"),
+    headerEl = qs("#main-header");
+  renderWithTemplate(headerTemplateFn, headerEl);
+  // Somewhere in this spot is where the cart count needs to be displayed
+  // since the cart icon is part of the header
+  // use the getCartCount function above
+
+  const
+    footerTemplateFn = loadTemplate("/partials/footer.html"),
+    footerEl = qs("#main-footer");
   renderWithTemplate(footerTemplateFn, footerEl);
 }

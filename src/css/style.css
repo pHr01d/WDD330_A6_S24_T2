@@ -25,14 +25,18 @@ body {
   color: var(--dark-grey);
 }
 
-img {
-  max-width: 100%;
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0.1em 1.5em;
+  background-color: white;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
+img {
+  max-width: 100%;
 }
 
 footer {
@@ -60,14 +64,14 @@ footer {
   color: var(--font-body);
 }
 
-.hero {
+/*.hero {
   position: relative;
-}
+}*/
 
 .hero .logo {
-  position: absolute;
+  position: relative;
   left: calc(50% - 60px);
-  bottom: -10px;
+  bottom: 20px;
   background-color: white;
 }
 
@@ -111,7 +115,7 @@ button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
-  margin: auto;
+  margin: 1em auto;
   display: block;
   border: 0;
   font-size: var(--large-font);
