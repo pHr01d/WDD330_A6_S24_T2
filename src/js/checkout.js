@@ -5,11 +5,14 @@ loadHeaderFooter();
 
 checkoutProcess.init("so-cart", ".checkout-summary");
 
+// this event listener watches for the blur event on the
+// Zip form field. When that happens, the listener invokes
+// the calculateOrderTotal function in the checkoutProcess object
 document
   .querySelector("#zip")
   .addEventListener(
     "blur",
-    checkoutProcess.calculateOrdertotal.bind(checkoutProcess)
+    checkoutProcess.calculateOrderTotal.bind(checkoutProcess)
   );
 
 // this is how it would look if we listen for the submit on the form

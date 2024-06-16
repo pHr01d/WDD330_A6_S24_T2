@@ -39,7 +39,7 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
 
 export async function renderWithTemplate(templateFn, parentElement, data, callback, position = "afterbegin", clear = true) {
   if (clear) {
-    parentElement.innerHTML = "";
+    parentElement.innerHTML = " ";
   }
   const htmlString = await templateFn(data);
 
@@ -80,7 +80,8 @@ export async function loadHeaderFooter() {
     footerEl = qs("#main-footer");
   renderWithTemplate(footerTemplateFn, footerEl);
 }
-export function alertMessage(message, scroll = true, duration = 3000) {
+
+export function alertMessage(message, scroll = true, duration = 10000, wipeout = true) {
   const alert = document.createElement("div");
   alert.classList.add("alert");
   alert.innerHTML = `<p>${message}</p><span>X</span>`;
@@ -90,19 +91,18 @@ export function alertMessage(message, scroll = true, duration = 3000) {
       main.removeChild(this);
     }
   });
-  const main = document.querySelector("main");
+  const main = qs("main");
   main.prepend(alert);
   // make sure they see the alert by scrolling to the top of the window
   //we may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
-  if (scroll) window.scrollTo(0, 0);
-
-  // left this here to show how you could remove the alert automatically after a certain amount of time.
-  // setTimeout(function () {
-  //   main.removeChild(alert);
-  // }, duration);
+  if (scroll)
+    window.scrollTo(0, 0);
+  // default to remove alert after duration. Can be overriden by passing false as fourth parameter
+  if (wipeout) 
+    setTimeout(function () { main.removeChild(alert); }, duration);
 }
 
 export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");
-  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+  alerts.forEach((alert) => qs("main").removeChild(alert));
 }
