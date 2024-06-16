@@ -1,4 +1,10 @@
-import { getLocalStorage, renderListWithTemplate, qs } from "./utils.mjs";
+import { 
+  getLocalStorage,
+  setLocalStorage,
+  renderListWithTemplate,
+  alertMessage,
+  qs
+  } from "./utils.mjs";
 
 export default function shoppingCart () {
   const
@@ -21,6 +27,78 @@ export default function shoppingCart () {
   }
 }
 
+// Adjusts quantity of items in the cart.
+//  productId: product id from caller
+//  action: new - add new item to cart
+//          add - increase qty of item by one
+//          sub - decrease qty of item by one
+//          rmv - remove item from cart
+export function adjustCart(product, command) {
+  let 
+    // get array of items in the cart (could be empty)
+    cartContents = getLocalStorage("so-cart"),
+    action = command,
+    msg = "";
+
+  // If cart doesn't exist, create it
+  if (!cartContents) {
+    cartContents = [];
+  }
+  // find index of item; will be -1 if it does not exist in cart
+  const
+    items = cartContents.map((item) => item.Id),
+    index = items.indexOf(product.Id),
+    itemExist = (index >= 0); // boolean showing if item exists
+
+  if (action == "new") {
+    // if item already exists then this is not a new item
+    // change action to "add"
+    if (itemExist) { action = "add";} 
+    else {
+      // otherwise, add item to cart
+      product.Qty = 1;
+      cartContents.push(product);
+      msg = " added to cart."
+    };
+  };
+  // increment item quantity if it exists
+  if (action == "add" && itemExist) {
+    cartContents[index].Qty += 1;
+    msg = " quantity increased by 1."
+  }
+  // decrement item quantity if it exists
+  if (action == "sub" && itemExist) {
+    cartContents[index].Qty -= 1;
+    msg = " quantity decreased by 1."
+    // if the removal results in quantity zero, then remove item from cart
+    if (cartContents[index].Qty < 1) {action = "rmv"};
+  }
+  // remove item from cart if it exists
+  if (action == "rmv" && itemExist) {
+    cartContents[index].remove();
+    msg = " removed from cart."
+  }
+  // if something happened in the cart then
+  //   update the cart
+  //   add an alert
+  //   animate the icon
+  if (msg != "") {
+    setLocalStorage("so-cart", cartContents);
+    alertMessage(`${product.NameWithoutBrand}${msg}`);
+
+    const cartIcon = document.getElementById("cartIcon");
+    cartIcon.classList.add("icon-swell"),
+      setTimeout(()=>{
+        cartIcon.classList.remove("icon-swell"),
+        cartIcon.classList.add("icon-normal"),
+        setTimeout(()=>{
+          cartIcon.classList.remove("icon-normal")
+        },750)
+      },750)
+  }
+shoppingCart();
+}
+
 function calcListTotal(list) {
   const
     amounts = list.map((item) => item.FinalPrice),
@@ -31,18 +109,26 @@ function calcListTotal(list) {
 
 function cartItemTemplate(item) {
   const cartItem = `<li class="cart-card divider">
-    <a href="#" class="cart-card__image">
+    <div class="cart-card__image">
       <img
         src="${item.Images.PrimaryMedium}"
         alt="${item.Name}"
       />
-    </a>
-    <a href="#">
+    </div>
+    <div>
       <h2 class="card__name">${item.Name}</h2>
-    </a>
+    </div>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">Qty: ${item.Qty}</p>
+    <p class="cart-card__quantity">QTY: ${item.Qty}</p>
+    <div class="cart-card__modify">
+    <span data-id="add_${item.Id}">&#10133</span>&nbsp;&nbsp;&nbsp;
+      <span data-id="sub_${item.Id}">&#10134</span>
+    </div>
+    <div class="cart-card__remove">
+      <span data-id="rmv_${item.Id}">&#10060 REMOVE </span>
+    </div>
     <p class="cart-card__price">$${(item.FinalPrice).toFixed(2)}</p>
   </li>`;
   return cartItem;
 }
+

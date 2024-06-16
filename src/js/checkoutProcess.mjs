@@ -18,7 +18,8 @@ function formDataToJSON(formElement) {
   return convertedJSON;
 }
 
-//takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
+// takes the items currently stored in the cart (localstorage) and
+// returns them in a simplified form.
 function packageItems(items) {
   const simplifiedItems = items.map((item) => {
     console.log(item);
@@ -63,7 +64,7 @@ const checkoutProcess = {
     summaryElement.innerText = "$" + this.itemTotal;
   },
 
-  calculateOrdertotal: function() {
+  calculateOrderTotal: function() {
     //calculate the shipping and tax amounts. Then use them to along with the cart total to figure out the order total.
     const quants = this.list.map((item) => item.Qty);
     this.shipping = (10 + quants.reduce((sum, item) => sum + item) * 2).toFixed(2);
