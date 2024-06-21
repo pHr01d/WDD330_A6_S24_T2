@@ -211,6 +211,18 @@ button {
 .product-detail img {
   width: 100%;
 }
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#myflag {
+  text-align: right;
+  flex: 0 0 auto;
+  color: red;
+}
 /* End product list card */
 
 
